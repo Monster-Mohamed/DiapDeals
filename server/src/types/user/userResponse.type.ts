@@ -2,7 +2,7 @@ export interface UserResponse {
   user: {
     username: string;
     email: string;
-    image: string;
+    avatarId?: number;
     token: string;
   };
 }
