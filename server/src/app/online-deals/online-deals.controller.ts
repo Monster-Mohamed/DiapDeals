@@ -1,15 +1,33 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { OnlineDealsService } from './online-deals.service';
 import { CreateOnlineDealDto } from './dto/create-online-deal.dto';
 import { UpdateOnlineDealDto } from './dto/update-online-deal.dto';
+import { AuthGuard } from '../../security/guards/auth.guard';
+import { User } from '../user/user.decorator';
 
 @Controller('online-deals')
 export class OnlineDealsController {
   constructor(private readonly onlineDealsService: OnlineDealsService) {}
 
   @Post()
-  create(@Body() createOnlineDealDto: CreateOnlineDealDto) {
-    return this.onlineDealsService.create(createOnlineDealDto);
+  @UseGuards(AuthGuard)
+  @UsePipes(new ValidationPipe())
+  async create(
+    @User('id') userId: number,
+    @Body('onlinedeal') createOnlineDealDto: CreateOnlineDealDto
+  ) {
+    return await this.onlineDealsService.create(createOnlineDealDto, userId);
   }
 
   @Get()
@@ -23,7 +41,10 @@ export class OnlineDealsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOnlineDealDto: UpdateOnlineDealDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateOnlineDealDto: UpdateOnlineDealDto
+  ) {
     return this.onlineDealsService.update(+id, updateOnlineDealDto);
   }
 

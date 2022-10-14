@@ -80,10 +80,12 @@ export class UserController {
   @Get()
   @UseGuards(AuthGuard)
   async getUser(@User() user: UserEntity): Promise<UserResponse> {
-    const avatar = await this.UserService.getAvatar(user.avatarId);
-    user[
-      'avatarLink'
-    ] = `${process.env.BACKEND_DOMAIN}/uploads/avatars/${avatar.filename}`;
+    if (user.avatarId) {
+      const avatar = await this.UserService.getAvatar(user.avatarId);
+      user[
+        'avatarLink'
+      ] = `${process.env.BACKEND_DOMAIN}/uploads/avatars/${avatar.filename}`;
+    }
     return this.UserService.buildUserResponse(user);
   }
 }

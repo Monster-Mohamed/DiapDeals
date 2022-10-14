@@ -109,12 +109,14 @@ export class UserHelperService {
   }
 
   async checkReferrerEmailAndUpdatePoints(
-    reffEmail: string
+    reffEmail: string,
+    userId: number
   ): Promise<PointEntity> {
     const { referrerUser, isValid } =
       await this.checkReferrerEmailIsValidAndGet(reffEmail);
 
     const point = new PointEntity();
+    point.userId = userId;
 
     if (isValid) {
       point.points = 10;
@@ -166,11 +168,9 @@ export class UserHelperService {
   }
 
   async createNewUser(
-    point: PointEntity,
     userDto: RegisterUserDto & { username: string }
   ): Promise<UserEntity> {
     const newUser = new UserEntity();
-    newUser.points = point;
     Object.assign(newUser, userDto);
     return await this.User.save(newUser);
   }

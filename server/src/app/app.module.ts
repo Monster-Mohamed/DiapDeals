@@ -12,6 +12,7 @@ import { ImageModule } from './image/image.module';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { join } from 'path';
 import { OnlineDealsModule } from './online-deals/online-deals.module';
+import { MerchantModule } from './merchant/merchant.module';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -42,6 +43,7 @@ import * as Joi from '@hapi/joi';
     PointModule,
     ImageModule,
     OnlineDealsModule,
+    MerchantModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -38,18 +38,21 @@ export class UserService {
     // TODO: check email is not already exists
     await this.userHelperService.emailIsNotAlreadyExist(userDto.email);
 
+    // TODO: add the new user to the database
+    const fullUserDto = Object.assign(userDto, { username });
+    const cuser = await this.userHelperService.createNewUser(fullUserDto);
+
     // TODO: check if the referrerEmail is valid & update the points for them
     const point =
       await this.userHelperService.checkReferrerEmailAndUpdatePoints(
-        userDto.referrerEmail
+        userDto.referrerEmail,
+        cuser.id
       );
 
-    // TODO: add the new user to the database
-    const fullUserDto = Object.assign(userDto, { username });
-    const cuser = await this.userHelperService.createNewUser(
-      point,
-      fullUserDto
-    );
+    // TODO: Add the point to the user's points
+    cuser.points = point;
+
+    await this.User.save(cuser);
 
     // TODO: send an email to the user to verify the account
     await this.userHelperService.sendVerificationEmail(cuser);
