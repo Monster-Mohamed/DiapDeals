@@ -4,31 +4,31 @@ export class CreateOnlineDealDto {
   @IsNotEmpty()
   readonly merchant: string;
 
-  readonly third_party_seller: string;
+  readonly thirdPartySeller: string;
 
   @IsNotEmpty()
   // Free OR Paid with the price of shipping
   readonly shipping: string;
 
   @IsNotEmpty()
-  readonly product_link: string;
+  readonly productLink: string;
 
   @IsNotEmpty()
-  readonly product_name: string;
+  readonly productName: string;
 
   @IsNotEmpty()
   readonly description: string;
 
   @IsNumber()
-  readonly price_before_coupon: number;
+  readonly priceBeforeCoupon: number;
 
-  readonly instant_discount: number;
+  readonly instantDiscount: number;
 
-  readonly clip_coupon_discount: number;
+  readonly clipCouponDiscount: number;
 
-  readonly coupon_code: string;
+  readonly couponCode: string;
 
-  readonly coupon_code_discount: number;
+  readonly couponCodeDiscount: number;
 
-  readonly coupon_code_expire_date: Date;
+  readonly couponCodeExpireDate: Date;
 }

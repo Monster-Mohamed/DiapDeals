@@ -15,6 +15,7 @@ import { CreateOnlineDealDto } from './dto/create-online-deal.dto';
 import { UpdateOnlineDealDto } from './dto/update-online-deal.dto';
 import { AuthGuard } from '../../security/guards/auth.guard';
 import { User } from '../user/user.decorator';
+import { UserEntity } from '../user/user.entity';
 
 @Controller('online-deals')
 export class OnlineDealsController {
@@ -24,10 +25,10 @@ export class OnlineDealsController {
   @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe())
   async create(
-    @User('id') userId: number,
+    @User() user: UserEntity,
     @Body('onlinedeal') createOnlineDealDto: CreateOnlineDealDto
   ) {
-    return await this.onlineDealsService.create(createOnlineDealDto, userId);
+    return await this.onlineDealsService.create(createOnlineDealDto, user);
   }
 
   @Get()

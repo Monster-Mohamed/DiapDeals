@@ -15,8 +15,13 @@ export class PointService {
     return Point;
   }
 
-  async addPointsToUserByUserId(userId: number): Promise<void> {
+  /**
+   * Add points to the user by the user's id
+   * @param userId: number
+   * @param no: number? and the default is 10
+   */
+  async addPointsToUserByUserId(userId: number, no = 10): Promise<void> {
     const points = await this.Point.findOneBy({ userId });
-    await this.Point.update({ userId }, { points: points.points + 10 });
+    await this.Point.update({ userId }, { points: points.points + no });
   }
 }

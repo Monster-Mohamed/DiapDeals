@@ -5,7 +5,9 @@ import { UpdateOnlineDealDto } from './dto/update-online-deal.dto';
 import { OnlineDeal } from './entities/online-deal.entity';
 import { Repository } from 'typeorm';
 import { PointService } from '../point/point.service';
-import { Merchant } from '../merchant/entities/merchant.entity';
+import { UserEntity } from '../user/user.entity';
+import { MerchantService } from '../merchant/merchant.service';
+import { ImageService } from '../image/image.service';
 
 @Injectable()
 export class OnlineDealsService {
@@ -13,14 +15,15 @@ export class OnlineDealsService {
     @InjectRepository(OnlineDeal)
     private readonly OnlineDeal: Repository<OnlineDeal>,
 
-    @InjectRepository(Merchant)
-    private readonly Merchant: Repository<Merchant>,
+    private readonly merchantService: MerchantService,
 
-    private readonly pointService: PointService
+    private readonly pointService: PointService,
+
+    private readonly imageService: ImageService
   ) {}
 
   async isLinkAlreadyExists(link: string): Promise<void> {
-    const result = await this.OnlineDeal.findOneBy({ product_link: link });
+    const result = await this.OnlineDeal.findOneBy({ productLink: link });
     if (result) {
       throw new HttpException(
         'The link you entered is already exists. Please try another link.',
@@ -31,25 +34,29 @@ export class OnlineDealsService {
 
   async create(
     createOnlineDealDto: CreateOnlineDealDto,
-    userId: number
+    user: UserEntity
   ): Promise<OnlineDeal> {
-    // TODO: create a new merchant
-    const merchant = this.Merchant.create({
-      name: createOnlineDealDto.merchant,
-    });
-
-    await this.Merchant.save(merchant);
+    // TODO: Get the image url from the product link
+    await this.imageService.saveImageFromUrlToDisk(
+      createOnlineDealDto.productLink
+    );
+    return 'd' as any;
+    // TODO: check if the merchant isn't exists create a new one
+    await this.merchantService.create(createOnlineDealDto.merchant);
 
     // TODO: If the link is already exists, return error
-    await this.isLinkAlreadyExists(createOnlineDealDto.product_link);
+    await this.isLinkAlreadyExists(createOnlineDealDto.productLink);
 
     // TODO: create the deal
     const od = this.OnlineDeal.create(createOnlineDealDto);
+    // * Add the author to the deal
+    od.author = user;
     await this.OnlineDeal.save(od);
 
     // TODO: add 10 points to the user
-    await this.pointService.addPointsToUserByUserId(userId);
+    await this.pointService.addPointsToUserByUserId(user.id);
 
+    // * return the online deal
     return od;
   }
 

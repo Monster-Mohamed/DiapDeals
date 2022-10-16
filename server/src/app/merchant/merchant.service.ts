@@ -10,6 +10,21 @@ export class MerchantService {
     private readonly Merchant: Repository<Merchant>
   ) {}
 
+  async create(merchant: string): Promise<void> {
+    const checkMerchant = await this.Merchant.findOneBy({
+      name: merchant,
+    });
+    if (!checkMerchant) {
+      // TODO: create a new merchant
+      const newMerchant = this.Merchant.create({
+        name: merchant,
+      });
+
+      //TODO: Save the merchant to the database
+      await this.Merchant.save(newMerchant);
+    }
+  }
+
   async findAll(): Promise<Merchant[]> {
     return await this.Merchant.find();
   }

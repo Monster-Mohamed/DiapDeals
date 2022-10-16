@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { UserEntity } from '../../user/user.entity';
 
 @Entity('online_deals')
 export class OnlineDeal {
@@ -9,23 +10,23 @@ export class OnlineDeal {
   merchant: string;
 
   @Column({ nullable: true })
-  third_party_seller: string;
+  thirdPartySeller: string;
 
   @Column()
   // Free OR Paid with the price of shipping
   shipping: string;
 
   @Column()
-  product_link: string;
+  productLink: string;
 
   @Column()
-  product_name: string;
+  productName: string;
 
   @Column()
   description: string;
 
   @Column({ type: 'decimal', precision: 5, scale: 2, default: 0 })
-  price_before_coupon: number;
+  priceBeforeCoupon: number;
 
   @Column({
     nullable: true,
@@ -34,7 +35,7 @@ export class OnlineDeal {
     scale: 2,
     default: 0,
   })
-  instant_discount: number;
+  instantDiscount: number;
 
   @Column({
     nullable: true,
@@ -43,14 +44,20 @@ export class OnlineDeal {
     scale: 2,
     default: 0,
   })
-  clip_coupon_discount: number;
+  clipCouponDiscount: number;
 
   @Column({ nullable: true })
-  coupon_code: string;
+  couponCode: string;
 
   @Column({ nullable: true })
-  coupon_code_discount: number;
+  couponCodeDiscount: number;
 
   @Column({ nullable: true })
-  coupon_code_expire_date: Date;
+  couponCodeExpireDate: Date;
+
+  @Column()
+  imagePath: string;
+
+  @ManyToOne(() => UserEntity, (u) => u.onlineDeals)
+  author: UserEntity;
 }

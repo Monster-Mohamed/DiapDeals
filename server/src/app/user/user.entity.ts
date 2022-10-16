@@ -3,12 +3,14 @@ import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { hash } from 'bcrypt';
 import { PointEntity } from '../point/point.entity';
 import { Image } from '../image/entities/image.entity';
+import { OnlineDeal } from '../online-deals/entities/online-deal.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -70,4 +72,7 @@ export class UserEntity {
 
   @Column({ nullable: true })
   public avatarId?: number;
+
+  @OneToMany(() => OnlineDeal, (od) => od.author, {cascade: true})
+  onlineDeals: OnlineDeal[];
 }
