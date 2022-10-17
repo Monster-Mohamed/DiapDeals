@@ -1,5 +1,13 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { UserEntity } from '../../user/user.entity';
+import { Category } from '../../category/entities/category.entity';
 
 @Entity('online_deals')
 export class OnlineDeal {
@@ -11,6 +19,9 @@ export class OnlineDeal {
 
   @Column({ nullable: true })
   thirdPartySeller: string;
+
+  @Column()
+  slug: string;
 
   @Column()
   // Free OR Paid with the price of shipping
@@ -56,8 +67,12 @@ export class OnlineDeal {
   couponCodeExpireDate: Date;
 
   @Column()
-  imagePath: string;
+  landingImageId: number;
 
   @ManyToOne(() => UserEntity, (u) => u.onlineDeals)
   author: UserEntity;
+
+  @ManyToMany(() => Category, { cascade: true })
+  @JoinTable()
+  categories: Category[];
 }

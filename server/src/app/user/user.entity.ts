@@ -68,10 +68,10 @@ export class UserEntity {
   @OneToOne(() => Image, {
     nullable: true,
   })
-  public avatar?: Image;
+  public avatar: Image;
 
   @Column({ nullable: true })
-  public avatarId?: number;
+  public avatarId: number;
 
   @OneToMany(() => OnlineDeal, (od) => od.author, {cascade: true})
   onlineDeals: OnlineDeal[];

@@ -1,8 +1,11 @@
-import { IsDate, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateOnlineDealDto {
   @IsNotEmpty()
   readonly merchant: string;
+
+  @IsNotEmpty()
+  readonly categoriesTitles: string[];
 
   readonly thirdPartySeller: string;
 

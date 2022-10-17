@@ -3,16 +3,13 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { OnlineDealsService } from './online-deals.service';
 import { CreateOnlineDealDto } from './dto/create-online-deal.dto';
-import { UpdateOnlineDealDto } from './dto/update-online-deal.dto';
 import { AuthGuard } from '../../security/guards/auth.guard';
 import { User } from '../user/user.decorator';
 import { UserEntity } from '../user/user.entity';
@@ -36,21 +33,8 @@ export class OnlineDealsController {
     return this.onlineDealsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.onlineDealsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateOnlineDealDto: UpdateOnlineDealDto
-  ) {
-    return this.onlineDealsService.update(+id, updateOnlineDealDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.onlineDealsService.remove(+id);
+  @Get(':slug')
+  findOne(@Param('slug') slug: string) {
+    return this.onlineDealsService.findOne(slug);
   }
 }

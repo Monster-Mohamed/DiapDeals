@@ -9,12 +9,26 @@ import { MerchantService } from '../merchant/merchant.service';
 import { Merchant } from '../merchant/entities/merchant.entity';
 import { ImageService } from '../image/image.service';
 import { Image } from '../image/entities/image.entity';
+import { CategoryService } from '../category/category.service';
+import { Category } from '../category/entities/category.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([OnlineDeal, PointEntity, Merchant, Image]),
+    TypeOrmModule.forFeature([
+      OnlineDeal,
+      PointEntity,
+      Merchant,
+      Image,
+      Category,
+    ]),
   ], // Entities
   controllers: [OnlineDealsController],
-  providers: [OnlineDealsService, PointService, MerchantService, ImageService],
+  providers: [
+    OnlineDealsService,
+    PointService,
+    MerchantService,
+    ImageService,
+    CategoryService,
+  ],
 })
 export class OnlineDealsModule {}
