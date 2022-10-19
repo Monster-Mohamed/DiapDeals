@@ -1,14 +1,11 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateImageDto } from './dto/create-image.dto';
-import { UpdateImageDto } from './dto/update-image.dto';
 import { Image } from './entities/image.entity';
-import { Repository } from 'typeorm';
 import cheerio from 'cheerio';
-import { Cheerio } from 'cheerio';
-import { SaveImageFromUrlToDBType } from '../../types/SaveImageFromUrlToDB.type';
+import { Repository } from 'typeorm';
+import { UploadApiErrorResponse, UploadApiResponse, v2 } from 'cloudinary';
+import toStream = require('buffer-to-stream');
 const axios = require('axios');
-const pretty = require('pretty');
 
 @Injectable()
 export class ImageService {
@@ -21,8 +18,8 @@ export class ImageService {
     return await this.ImageRepository.findOneBy({ id });
   }
 
-  async saveImageData(createImageDto: CreateImageDto): Promise<Image> {
-    const newImage = this.ImageRepository.create(createImageDto);
+  async saveImageData(url: string): Promise<Image> {
+    const newImage = this.ImageRepository.create({ path: url });
     await this.ImageRepository.save(newImage);
     return newImage;
   }
@@ -68,7 +65,6 @@ export class ImageService {
         if (!defaultImage) {
           const img = this.ImageRepository.create({
             path: 'https://www.eps.org/global_graphics/default-store-350x350.jpg',
-            filename: Date.now().toString(),
           });
 
           return await this.ImageRepository.save(img);
@@ -79,7 +75,6 @@ export class ImageService {
 
       const createImage = this.ImageRepository.create({
         path: imagePath,
-        filename: productName.trim() + '-' + Date.now(),
       });
 
       const img = await this.ImageRepository.save(createImage);
@@ -93,16 +88,26 @@ export class ImageService {
     }
   }
 
+  async uploadImage(
+    folder: string,
+    file: Express.Multer.File
+  ): Promise<UploadApiResponse | UploadApiErrorResponse> {
+    return new Promise((resolve, reject) => {
+      const upload = v2.uploader.upload_stream({ folder }, (error, result) => {
+        if (error) return reject(error);
+
+        resolve(result);
+      });
+      toStream(file.buffer).pipe(upload);
+    });
+  }
+
   findAll() {
     return `This action returns all image`;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} image`;
-  }
-
-  update(id: number, updateImageDto: UpdateImageDto) {
-    return `This action updates a #${id} image`;
   }
 
   remove(id: number) {

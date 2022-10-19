@@ -57,6 +57,7 @@ export class UserService {
     // TODO: send an email to the user to verify the account
     await this.userHelperService.sendVerificationEmail(cuser);
 
+    // TODO: Get the current user
     const user = await this.userHelperService.findById(cuser.id);
 
     // return the new user
@@ -67,9 +68,12 @@ export class UserService {
     userId: number,
     avatar: Express.Multer.File
   ): Promise<UserEntity> {
+    // TODO: Upload the avatar to the server
+    const img = await this.imageService.uploadImage('users/avatars', avatar);
+
     // TODO: add the avatar to the user
-    const av = await this.imageService.saveImageData(avatar);
-    await this.User.update({ id: userId }, { avatarId: av.id });
+    const av = await this.imageService.saveImageData(img.url);
+    await this.User.update({ id: userId }, { avatar: av });
     return await this.userHelperService.findById(userId);
   }
 

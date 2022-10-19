@@ -47,6 +47,11 @@ export class UserEntity {
   @Column({ default: '' })
   first_name: string;
 
+  @Column({ default: 0 })
+  // 0 => user
+  // 1 => admin
+  rules: number;
+
   @Column({ default: '' })
   last_name: string;
 
@@ -64,15 +69,10 @@ export class UserEntity {
   @OneToOne(() => PointEntity, (points) => points.user, { eager: true })
   points: PointEntity;
 
-  @JoinColumn({ name: 'avatarId' })
-  @OneToOne(() => Image, {
-    nullable: true,
-  })
+  @JoinColumn()
+  @OneToOne(() => Image, { eager: true, cascade: true, nullable: true })
   public avatar: Image;
 
-  @Column({ nullable: true })
-  public avatarId: number;
-
-  @OneToMany(() => OnlineDeal, (od) => od.author, {cascade: true})
+  @OneToMany(() => OnlineDeal, (od) => od.author, { cascade: true })
   onlineDeals: OnlineDeal[];
 }

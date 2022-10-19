@@ -64,7 +64,7 @@ export class UserHelperService {
       username: user.username,
     };
 
-    objectCleaner(user, ['password', 'id']);
+    objectCleaner(user, ['password', 'id', 'rules']);
 
     return {
       user: {

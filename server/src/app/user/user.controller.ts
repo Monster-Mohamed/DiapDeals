@@ -22,8 +22,9 @@ import { AuthGuard } from '../../security/guards/auth.guard';
 import { Message } from '../../types/message.type';
 import { ResetPasswordDto } from './dto/resetPassword.dto';
 import { UserService } from './user.service';
-import { saveImageToStorage } from '../../helpers/image-storage.helper';
-import LocalFilesInterceptor from '@app/app/global/interceptors/local-files.interceptor';
+import ImageStorage from '../image/helpers/image-storage.helper';
+import { Image } from '../image/entities/image.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('users')
 export class UserController {
@@ -42,7 +43,7 @@ export class UserController {
 
   @Post('avatar')
   @UseGuards(AuthGuard)
-  @UseInterceptors(LocalFilesInterceptor(saveImageToStorage))
+  @UseInterceptors(FileInterceptor('avatar', ImageStorage.filterImage))
   async addAvatar(
     @User('id') userId: number,
     @UploadedFile() avatar: Express.Multer.File
@@ -79,13 +80,10 @@ export class UserController {
 
   @Get()
   @UseGuards(AuthGuard)
-  async getUser(@User() user: UserEntity): Promise<UserResponse> {
-    if (user.avatarId) {
-      const avatar = await this.UserService.getAvatar(user.avatarId);
-      user[
-        'avatarLink'
-      ] = `${process.env.BACKEND_DOMAIN}/uploads/avatars/${avatar.filename}`;
+  async getUser(@User() user: UserEntity): Promise<Image> {
+    if (user.avatar) {
+      const avatar = await this.UserService.getAvatar(user.avatar.id);
+      return avatar;
     }
-    return this.UserService.buildUserResponse(user);
   }
 }

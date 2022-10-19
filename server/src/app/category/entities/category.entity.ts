@@ -12,16 +12,13 @@ export class Category {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   title: string;
-
-  @Column()
-  slug: string;
 
   @Column({ nullable: true })
   description: string;
 
   @JoinColumn()
   @OneToOne(() => Image, { eager: true, cascade: true })
-  public image: Image;
+  public landingImage: Image;
 }

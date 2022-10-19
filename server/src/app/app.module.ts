@@ -14,17 +14,11 @@ import { join } from 'path';
 import { OnlineDealsModule } from './online-deals/online-deals.module';
 import { MerchantModule } from './merchant/merchant.module';
 import { CategoryModule } from './category/category.module';
-import * as Joi from '@hapi/joi';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(ormConfig),
-    ConfigModule.forRoot({
-      validationSchema: Joi.object({
-        UPLOADED_FILES_DESTINATION: Joi.string().required(),
-        // ...
-      }),
-    }),
+    ConfigModule.forRoot(),
     MailerModule.forRoot({
       transport: {
         host: process.env.SENDGRID_HOST,
