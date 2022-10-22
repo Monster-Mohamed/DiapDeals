@@ -29,6 +29,11 @@ export class UserHelperService {
     return user;
   }
 
+  async findByUsername(username: string): Promise<UserEntity> {
+    const user = await this.User.findOneBy({ username });
+    return user;
+  }
+
   async checkPasswordIsNew(id: number, newPassword: string): Promise<void> {
     const user = await this.User.findOne({
       where: { id },

@@ -25,6 +25,8 @@ export class CreateOnlineDealDto {
   @IsNumber()
   readonly priceBeforeCoupon: number;
 
+  @IsNotEmpty()
+  @IsNumber()
   readonly instantDiscount: number;
 
   readonly clipCouponDiscount: number;

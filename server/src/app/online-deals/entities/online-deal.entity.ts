@@ -1,13 +1,19 @@
 import {
+  AfterInsert,
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UserEntity } from '../../user/user.entity';
 import { Category } from '../../category/entities/category.entity';
+import { Image } from '../../image/entities/image.entity';
 
 @Entity('online_deals')
 export class OnlineDeal {
@@ -36,17 +42,30 @@ export class OnlineDeal {
   @Column()
   description: string;
 
-  @Column({ type: 'decimal', precision: 5, scale: 2, default: 0 })
+  @Column({
+    type: 'decimal',
+    precision: 3,
+    scale: 1,
+    nullable: true,
+  })
+  discount: number;
+
+  @Column({ type: 'decimal', precision: 5, scale: 2 })
   priceBeforeCoupon: number;
 
   @Column({
-    nullable: true,
     type: 'decimal',
     precision: 5,
     scale: 2,
-    default: 0,
   })
   instantDiscount: number;
+
+  @Column({
+    type: 'decimal',
+    precision: 5,
+    scale: 2,
+  })
+  priceAfterCoupon: number;
 
   @Column({
     nullable: true,
@@ -66,11 +85,31 @@ export class OnlineDeal {
   @Column({ nullable: true })
   couponCodeExpireDate: Date;
 
-  @Column()
-  landingImageId: number;
+  @Column({ type: 'timestamp' })
+  createdAt: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  updatedAt: Date;
+
+  @BeforeInsert()
+  createTimestamp() {
+    this.createdAt = new Date();
+  }
+
+  @BeforeUpdate()
+  updateTimestamp() {
+    this.updatedAt = new Date();
+  }
+
+  @JoinColumn()
+  @OneToOne(() => Image, { eager: true, cascade: true })
+  public landingImage: Image;
 
   @ManyToOne(() => UserEntity, (u) => u.onlineDeals)
   author: UserEntity;
+
+  @Column({ default: 0 })
+  verified: number;
 
   @ManyToMany(() => Category, { cascade: true })
   @JoinTable()

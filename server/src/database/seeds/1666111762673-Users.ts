@@ -15,6 +15,7 @@ export class Users1666111762673 implements MigrationInterface {
         'USA'
       )`
     );
+    await queryRunner.query(`INSERT INTO points (points) VALUES (100)`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {}

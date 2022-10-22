@@ -15,12 +15,12 @@ export class PointEntity {
   @Column({ default: 0 })
   points: number;
 
-  @Column()
+  @Column({ nullable: true })
   userId: number;
 
   // relation between points and user
   // every user has one points field \\ one to one
-  @OneToOne(() => UserEntity)
+  @OneToOne(() => UserEntity, { nullable: true })
   @JoinColumn()
   user: UserEntity;
 }

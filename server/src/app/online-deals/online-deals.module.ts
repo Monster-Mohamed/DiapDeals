@@ -11,6 +11,9 @@ import { ImageService } from '../image/image.service';
 import { Image } from '../image/entities/image.entity';
 import { CategoryService } from '../category/category.service';
 import { Category } from '../category/entities/category.entity';
+import { UserEntity } from '../user/user.entity';
+import { UserHelperService } from '../user/user-helper/user-helper.service';
+import { EmailService } from '../global/services/email.service';
 
 @Module({
   imports: [
@@ -20,6 +23,7 @@ import { Category } from '../category/entities/category.entity';
       Merchant,
       Image,
       Category,
+      UserEntity,
     ]),
   ], // Entities
   controllers: [OnlineDealsController],
@@ -29,6 +33,8 @@ import { Category } from '../category/entities/category.entity';
     MerchantService,
     ImageService,
     CategoryService,
+    UserHelperService,
+    EmailService,
   ],
 })
 export class OnlineDealsModule {}

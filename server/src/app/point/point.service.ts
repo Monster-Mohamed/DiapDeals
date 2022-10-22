@@ -22,6 +22,6 @@ export class PointService {
    */
   async addPointsToUserByUserId(userId: number, no = 10): Promise<void> {
     const points = await this.Point.findOneBy({ userId });
-    await this.Point.update({ userId }, { points: points.points + no });
+    await this.Point.update({ userId }, { points: points?.points + no });
   }
 }
