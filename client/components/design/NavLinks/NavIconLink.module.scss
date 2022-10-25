@@ -1,0 +1,7 @@
+.parent {
+  &:hover {
+    * {
+      @apply text-slate-300;
+    }
+  }
+}
