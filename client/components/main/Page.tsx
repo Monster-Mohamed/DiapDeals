@@ -1,15 +1,15 @@
-import React, { Fragment, ReactNode } from 'react';
-import Head from 'next/head';
-import { vars } from '../../static/vars.static';
+import React, { Fragment, ReactNode } from "react";
+import Head from "next/head";
+import vars from "../../static/vars.static";
+import { Children } from "../types/Children.type";
+import { Title } from "../types/Title.type";
 
-type PageType = {
-  children?: ReactNode;
-  title?: string;
+interface PageType extends Children, Title {
   description?: string;
-};
+}
 
 const Page: React.FC<PageType> = ({ children, title, description }) => {
-  title = `${vars.APP_NAME} ${title ? `| ${title}` : ''}`;
+  title = `${vars.APP_NAME} ${title ? `| ${title}` : ""}`;
 
   return (
     <Fragment>

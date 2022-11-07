@@ -1,19 +1,21 @@
 import React, { ReactNode } from 'react';
 import Footer from './Footer';
-import Nav from './Nav';
+import Navbar from './Navbar';
+import { ThemeProvider } from '@emotion/react';
+import { theme } from '../../themes/theme';
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="bg-slate-50 h-full">
+    <ThemeProvider theme={theme}>
       {/* The Navbar Here */}
-      <Nav />
+      <Navbar />
 
       {/* The Page Content */}
       <main>{children}</main>
 
       {/* The Footer Here */}
       <Footer />
-    </div>
+    </ThemeProvider>
   );
 };
 
