@@ -176,6 +176,9 @@ export class UserHelperService {
     userDto: RegisterUserDto & { username: string }
   ): Promise<UserEntity> {
     const newUser = new UserEntity();
+    if (typeof userDto.zip_code !== 'number') {
+      userDto.zip_code = 0;
+    }
     Object.assign(newUser, userDto);
     return await this.User.save(newUser);
   }

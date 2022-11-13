@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { FC } from 'react';
 import { APP_NAME } from '../../../static/vars.static';
 import {
   NavbarIconsSectionContainer,
@@ -7,11 +7,12 @@ import {
   NavbarHeader,
   NavbarMiddleSection,
 } from '../../designs/Navbar/navbar.styles';
-import NavIconsLink from '../../designs/NavIconsLink';
-import NavLinks from '../../designs/NavLinks';
-import Searchbar from '../../designs/Searchbar';
+import NavIconsLink from '../../designs/Navbar/NavIconsLink';
+import NavLinks from '../../designs/Navbar/NavLinks';
+import Searchbar from '../../designs/SearchbarComponents/Searchbar';
+import { NavbarType } from './Navbar.type';
 
-const NavbarDesktop = () => {
+const NavbarDesktop: FC<NavbarType> = ({ setShowSignup }) => {
   return (
     <NavbarContainer>
       <Link href="/">
@@ -24,7 +25,7 @@ const NavbarDesktop = () => {
       </NavbarMiddleSection>
 
       <NavbarIconsSectionContainer>
-        <NavIconsLink />
+        <NavIconsLink setShowState={setShowSignup} />
       </NavbarIconsSectionContainer>
     </NavbarContainer>
   );

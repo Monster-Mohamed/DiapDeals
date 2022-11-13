@@ -30,10 +30,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class UserController {
   constructor(private readonly UserService: UserService) {}
 
-  // ------------------------------------------------
-  // TODO: Handling the image of the user
-  // ------------------------------------------------
-
   @Post()
   @UsePipes(new ValidationPipe())
   async createUser(@Body('user') user: RegisterUserDto): Promise<UserResponse> {

@@ -1,17 +1,18 @@
 import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { APP_NAME } from '../../../static/vars.static';
-import BurgerMenu from '../../designs/BurgerMenu';
+import BurgerMenu from '../../designs/Navbar/BurgerMenu';
 import {
   NavbarContainer,
   NavbarHeader,
   NavbarMiddleSection,
 } from '../../designs/Navbar/navbar.styles';
-import NavbarDropdown from '../../designs/NavbarDropdown';
-import Searchbar from '../../designs/Searchbar';
+import NavbarDropdown from '../../designs/Navbar/NavbarDropdown';
+import Searchbar from '../../designs/SearchbarComponents/Searchbar';
+import { NavbarType } from './Navbar.type';
 
-const NavbarMobile = () => {
+const NavbarMobile: FC<NavbarType> = ({ setShowSignup }) => {
   const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
 
   return (
@@ -30,7 +31,7 @@ const NavbarMobile = () => {
       />
 
       <AnimatePresence exitBeforeEnter>
-        {openDropdownMenu && <NavbarDropdown />}
+        {openDropdownMenu && <NavbarDropdown setShowSignup={setShowSignup} />}
       </AnimatePresence>
     </NavbarContainer>
   );

@@ -15,7 +15,7 @@ export class RegisterUserDto {
 
   readonly referrerEmail: string;
 
-  readonly zip_code: number;
+  zip_code: number;
 
   readonly state: string;
 
@@ -23,7 +23,7 @@ export class RegisterUserDto {
 
   readonly phone_number: number;
 
-  readonly gender: 'male' | 'female';
+  readonly gender: string;
 
   readonly date_of_birth: Date;
 
