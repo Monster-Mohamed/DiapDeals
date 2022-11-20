@@ -1,10 +1,17 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
+import ModalPagesContext from '../../../context/modal-pages-context';
 import { BlackScreenStyle } from './styles';
-import { BlackScreenType, motionDiv } from './type';
+import { motionDiv } from './type';
 
-const BlackScreen: FC<BlackScreenType & motionDiv> = ({ setState }) => {
+const BlackScreen: FC<motionDiv> = () => {
+  const { toggle, goTo } = useContext(ModalPagesContext);
+
   const close = () => {
-    setState(false);
+    toggle();
+    const timer = setTimeout(() => {
+      goTo('start');
+      clearTimeout(timer);
+    }, 500);
   };
   return <BlackScreenStyle onClick={close} />;
 };

@@ -1,26 +1,30 @@
-import { AnimatePresence } from 'framer-motion';
-import React, { FC } from 'react';
-import { APP_NAME } from '../../../../static/vars.static';
-import MainForm from '../../../designs/Forms/MainForm';
-import MainModal from '../../../designs/Modals/MainModal';
+import React, { useContext } from 'react';
+import ModalPagesContext from '../../../../context/modal-pages-context';
+import GoRightContainer from '../../../designs/Animations/GoRightContainer';
+import {
+  MainModalActionsHeader,
+  MainModalActionsSubHeader,
+} from '../../../designs/Modals/MainModal/MainModalActions/styles';
+import SignupFirstPage from '../../../main/SignupPages/FirstPage/SignupFirstPage';
+import SignupSecondPage from '../../../main/SignupPages/SecondPage/SignupSecondPage';
 
-export interface SignupType {
-  showSignup: boolean;
-  setShowSignup: any;
-}
+const Signup = () => {
+  const { page } = useContext(ModalPagesContext);
 
-const Signup: FC<SignupType> = ({ showSignup, setShowSignup }) => {
   return (
-    <AnimatePresence>
-      {showSignup && (
-        <MainModal
-          header="Create My Profile / Sginup"
-          subHeader={`Welcome to ${APP_NAME}! Sign up with`}
-          setShowState={setShowSignup}
-          Form={MainForm}
-        />
+    <GoRightContainer>
+      <MainModalActionsHeader variant="h1">
+        Create My Profile / Log In
+      </MainModalActionsHeader>
+      <MainModalActionsSubHeader variant="subtitle1">
+        Welcome to DealNews! Sign in with
+      </MainModalActionsSubHeader>
+      {page === 'register' ? (
+        <SignupFirstPage />
+      ) : (
+        page === 'register-2' && <SignupSecondPage />
       )}
-    </AnimatePresence>
+    </GoRightContainer>
   );
 };
 

@@ -20,6 +20,7 @@ export const MainModalActionsHeader = styled(Typography)(() => ({
 export const MainModalActionsSubHeader = styled(Typography)(() => ({
   fontSize: 14,
   color: Colors.primary,
+  marginBottom: 20,
 }));
 
 export const SecondPageContainer = styled(motion.div)(() => ({

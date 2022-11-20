@@ -10,9 +10,8 @@ import {
 } from '../../designs/Navbar/navbar.styles';
 import NavbarDropdown from '../../designs/Navbar/NavbarDropdown';
 import Searchbar from '../../designs/SearchbarComponents/Searchbar';
-import { NavbarType } from './Navbar.type';
 
-const NavbarMobile: FC<NavbarType> = ({ setShowSignup }) => {
+const NavbarMobile = () => {
   const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
 
   return (
@@ -31,7 +30,7 @@ const NavbarMobile: FC<NavbarType> = ({ setShowSignup }) => {
       />
 
       <AnimatePresence exitBeforeEnter>
-        {openDropdownMenu && <NavbarDropdown setShowSignup={setShowSignup} />}
+        {openDropdownMenu && <NavbarDropdown />}
       </AnimatePresence>
     </NavbarContainer>
   );

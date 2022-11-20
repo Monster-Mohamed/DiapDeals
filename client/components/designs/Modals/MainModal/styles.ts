@@ -12,7 +12,7 @@ export const MainModalContainer = styled(motion.div)(({ theme }) => ({
   transform: 'translate(-50%, -50%)',
   background: Colors.white,
   width: 400,
-  height: '75vh',
+  height: '85vh',
   overflowX: 'auto',
   paddingBottom: 30,
 }));

@@ -4,7 +4,7 @@ var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
 var regularExpression =
   /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
-export const validation = Yup.object().shape({
+export const validationFirstPage = Yup.object().shape({
   first_name: Yup.string().required('Required'),
   last_name: Yup.string().required('Required'),
   email: Yup.string()

@@ -1,12 +1,15 @@
 import React, { ReactNode } from 'react';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import { ThemeProvider } from '@emotion/react';
-import { theme } from '../../themes/theme';
+import MainModal from '../designs/Modals/MainModal';
+import Providers from '../providers';
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <ThemeProvider theme={theme}>
+    <Providers>
+      {/* Auth | Main Modal */}
+      <MainModal />
+
       {/* The Navbar Here */}
       <Navbar />
 
@@ -15,7 +18,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
       {/* The Footer Here */}
       <Footer />
-    </ThemeProvider>
+    </Providers>
   );
 };
 

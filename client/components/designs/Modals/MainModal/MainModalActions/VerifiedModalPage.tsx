@@ -7,7 +7,7 @@ import {
 import VerifiedIcon from '@mui/icons-material/Verified';
 import GoRightContainer from '../../../Animations/GoRightContainer';
 
-const SecondPage = () => {
+const VerifiedModalPage = () => {
   return (
     <GoRightContainer>
       <SecondPageContainer>
@@ -20,4 +20,4 @@ const SecondPage = () => {
   );
 };
 
-export default SecondPage;
+export default VerifiedModalPage;

@@ -1,16 +1,17 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import NavIcon from './NavIcon';
 import { NavIconsLinkContainer } from './naviconslink.styles';
 import AddIcon from '@mui/icons-material/Add';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PersonIcon from '@mui/icons-material/Person';
 import { Colors } from '../../../../themes/colors.theme';
+import ModalPagesContext from '../../../../context/modal-pages-context';
 
-const NavIconsLink: FC<{ setShowState: any }> = ({ setShowState }) => {
+const NavIconsLink = () => {
+  const { toggle } = useContext(ModalPagesContext);
+
   const openSignup = () => {
-    if (setShowState) {
-      setShowState(true);
-    }
+    toggle();
   };
 
   return (

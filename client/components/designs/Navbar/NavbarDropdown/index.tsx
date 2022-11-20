@@ -3,7 +3,7 @@ import NavIconsLink from '../NavIconsLink';
 import NavLinks from '../NavLinks';
 import { NavbarDropdownContainer } from './navbardropdown.styles';
 
-const NavbarDropdown: FC<{ setShowSignup: any }> = ({ setShowSignup }) => {
+const NavbarDropdown = () => {
   return (
     <NavbarDropdownContainer
       initial={{ y: '-100vh' }}
@@ -15,7 +15,7 @@ const NavbarDropdown: FC<{ setShowSignup: any }> = ({ setShowSignup }) => {
         },
       }}
     >
-      <NavIconsLink setShowState={setShowSignup} />
+      <NavIconsLink />
       <NavLinks />
     </NavbarDropdownContainer>
   );

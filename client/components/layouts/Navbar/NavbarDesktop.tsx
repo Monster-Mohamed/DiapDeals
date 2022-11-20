@@ -10,9 +10,8 @@ import {
 import NavIconsLink from '../../designs/Navbar/NavIconsLink';
 import NavLinks from '../../designs/Navbar/NavLinks';
 import Searchbar from '../../designs/SearchbarComponents/Searchbar';
-import { NavbarType } from './Navbar.type';
 
-const NavbarDesktop: FC<NavbarType> = ({ setShowSignup }) => {
+const NavbarDesktop = () => {
   return (
     <NavbarContainer>
       <Link href="/">
@@ -25,7 +24,7 @@ const NavbarDesktop: FC<NavbarType> = ({ setShowSignup }) => {
       </NavbarMiddleSection>
 
       <NavbarIconsSectionContainer>
-        <NavIconsLink setShowState={setShowSignup} />
+        <NavIconsLink />
       </NavbarIconsSectionContainer>
     </NavbarContainer>
   );

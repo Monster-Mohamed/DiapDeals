@@ -12,6 +12,7 @@ import { ResetPasswordDto } from '../user/dto/resetPassword.dto';
 import { UserResponse } from '@app/types/user/userResponse.type';
 import { ImageService } from '../image/image.service';
 import { Image } from '../image/entities/image.entity';
+import { UpdateUserDto } from './dto/updateUser.dto';
 
 @Injectable()
 export class UserService {
@@ -62,6 +63,20 @@ export class UserService {
 
     // return the new user
     return user;
+  }
+
+  async update(
+    updatedUserDto: UpdateUserDto,
+    userId: number
+  ): Promise<UserEntity> {
+    const user = await this.User.update(
+      { id: userId },
+      {
+        ...updatedUserDto,
+      }
+    );
+
+    return await this.userHelperService.findById(userId);
   }
 
   async addAvatar(

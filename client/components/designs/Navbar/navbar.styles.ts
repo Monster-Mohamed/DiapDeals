@@ -29,7 +29,6 @@ export const NavbarHeader = styled(Box)(({ theme }) => ({
 }));
 
 export const NavbarMiddleSection = styled(Box)(({ theme }) => ({
-  // border: '4px solid red',
   color: Colors.white,
   fontSize: '1.5em',
   display: 'flex',

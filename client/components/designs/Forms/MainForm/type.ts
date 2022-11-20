@@ -1,5 +1,14 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
-export type MainFormType = {
-  setPage: Dispatch<SetStateAction<number>>;
-};
+export interface MainFormType {
+  children: ReactNode;
+  initialValues: any;
+  validation: any;
+  onSubmit: (values: any, formikHelper: any) => void;
+  loading: boolean;
+  errors: string;
+  btnText: string;
+  setErrors: Dispatch<SetStateAction<string>>;
+  secondPageInputs?: JSX.Element;
+  goBack?: boolean;
+}

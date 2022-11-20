@@ -25,6 +25,7 @@ import { UserService } from './user.service';
 import ImageStorage from '../image/helpers/image-storage.helper';
 import { Image } from '../image/entities/image.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { UpdateUserDto } from './dto/updateUser.dto';
 
 @Controller('users')
 export class UserController {
@@ -34,6 +35,17 @@ export class UserController {
   @UsePipes(new ValidationPipe())
   async createUser(@Body('user') user: RegisterUserDto): Promise<UserResponse> {
     const newUser = await this.UserService.register(user);
+    return this.UserService.buildUserResponse(newUser);
+  }
+
+  @Put()
+  @UseGuards(AuthGuard)
+  @UsePipes(new ValidationPipe())
+  async updateUser(
+    @User('id') userId: number,
+    @Body('user') user: UpdateUserDto
+  ): Promise<UserResponse> {
+    const newUser = await this.UserService.update(user, userId);
     return this.UserService.buildUserResponse(newUser);
   }
 
