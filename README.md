@@ -17,16 +17,18 @@ npm start
 
   1. designs => all components that's only need a design and some logic
   2. layouts => the project layout is not related to the pages the layouts is related to the app itself
-  3. Auth => the signup/login modal
-  4. Navbar
-  5. Footer
-  6. Layout => the main layout
-  7. main => the main components related to a pages and not the designs
-  8. providers => the providers of the app
-  9. AuthProvider => the auth provider
-  10. ModalPagesProvider => the modal to signup/login
-  11. ThemeProvider => the the mui theme
-  12. types => the types of the components and methods
+
+     - Auth => the signup/login modal
+     - Navbar
+     - Footer
+     - Layout => the main layout
+
+  3. main => the main components related to a pages and not the designs
+  4. providers => the providers of the app
+  5. AuthProvider => the auth provider
+  6. ModalPagesProvider => the modal to signup/login
+  7. ThemeProvider => the the mui theme
+  8. types => the types of the components and methods
 
 - context => the api context
   1. auth-context
